@@ -11,13 +11,33 @@ module.exports = {
         filename: 'bundle.js'
     },
     module: {
-      rules: [{
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          }
+        },
+        {
+          test: /\.css$/,
+          use: [
+            {
+              loader: 'style-loader'  // 可以把css放在页面上
+            },
+            {
+              loader: 'css-loader'    // 放在后面的先被解析
+            }
+          ]
+        },
+        {
+          test: /\.(ttf|eot|woff|woff2)$/,
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]',
+          },
         }
-      }]
+      ]
     },
     plugins: [
         new htmlPlugin({
